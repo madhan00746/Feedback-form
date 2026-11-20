@@ -1,6 +1,10 @@
+
 import React, { useState } from "react";
 import axios from "axios";
 import "./App.css";
+
+// Replace this with your actual Render URL
+const API_URL = "https://feedback-form-api-7201.onrender.com";
 
 function App() {
   const [feedback, setFeedback] = useState({
@@ -20,10 +24,19 @@ function App() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
-      await axios.post("http://localhost:5000/api/feedback", feedback);
+      await axios.post(`${API_URL}/api/feedback`, feedback);
+
       alert("Feedback submitted successfully!");
-      setFeedback({ q1: "", q2: "", q3: "", q4: "", q5: "" });
+
+      setFeedback({
+        q1: "",
+        q2: "",
+        q3: "",
+        q4: "",
+        q5: "",
+      });
     } catch (error) {
       console.error("Error submitting feedback:", error);
       alert("Failed to submit feedback. Please try again.");
@@ -33,50 +46,22 @@ function App() {
   return (
     <div className="container">
       <h1>Feedback Form</h1>
+
       <form onSubmit={handleSubmit} className="feedback-form">
         <label>Name:</label>
-        <input
-          type="text"
-          name="q1"
-          value={feedback.q1}
-          onChange={handleChange}
-          required
-        />
+        <input type="text" name="q1" value={feedback.q1} onChange={handleChange} required />
 
         <label>Department:</label>
-        <input
-          type="text"
-          name="q2"
-          value={feedback.q2}
-          onChange={handleChange}
-          required
-        />
+        <input type="text" name="q2" value={feedback.q2} onChange={handleChange} required />
 
         <label>Session Title:</label>
-        <input
-          type="text"
-          name="q3"
-          value={feedback.q3}
-          onChange={handleChange}
-          required
-        />
+        <input type="text" name="q3" value={feedback.q3} onChange={handleChange} required />
 
         <label>Feedback:</label>
-        <input
-          type="text"
-          name="q4"
-          value={feedback.q4}
-          onChange={handleChange}
-          required
-        />
+        <input type="text" name="q4" value={feedback.q4} onChange={handleChange} required />
 
         <label>Suggestions:</label>
-        <input
-          type="text"
-          name="q5"
-          value={feedback.q5}
-          onChange={handleChange}
-        />
+        <input type="text" name="q5" value={feedback.q5} onChange={handleChange} />
 
         <button type="submit">Submit</button>
       </form>
